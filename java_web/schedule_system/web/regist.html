@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <style>
+            .tab{
+                width: 700px;
+                border: 5px solid cadetblue;
+                margin: 0px auto;
+                border-radius: 5px;
+                font-family: 幼圆;
+                border-collapse: collapse;
+            }
+            .tab td
+            {
+                border: 1px solid #5ea0a1;
+            }
+            #userIdMSG,#userPwdMSG,#confirmMsg{
+                color: red;
+            }
+            #inputPwd,#inputId,#confirmPwd
+            {
+                border: 0px;
+            }
+            .button
+            {
+                text-align: center;
+            }
+            .title
+            {
+                text-align: center;
+                color: #3b95a1;
+            }
+            .tr
+            {
+                color: rebeccapurple;
+                font-family: "Lucida Calligraphy"
+            }
+        </style>
+</head>
+<body>
+<h1 class="title">欢迎使用学生管理系统</h1>
+<h3 class="title">请注册</h3>
+<script>
+    function checkuserId()
+    {
+        var regex=/^[0-9a-zA-Z]{5,10}$/
+        var userId = document.getElementById("inputId").value;
+        var elementById = document.getElementById("userIdMSG");
+        if(!regex.test(userId))
+        {
+            elementById.innerText="不合法"
+            return false;
+        }
+        elementById.innerText="OK"
+        return true
+
+
+
+    }
+    function checkuserPwd()
+    {
+        var regex=/^[0-9]{8,13}$/
+        var userPwd=document.getElementById("inputPwd").value
+        var elementById = document.getElementById("userPwdMSG");
+        if(!regex.test(userPwd))
+        {
+            elementById.innerText="不合法"
+            return false
+        }
+        elementById.innerText="OK"
+        return true
+
+    }
+    function  confirmpassword()
+    {
+        var regex=/^[0-9]{8,13}$/
+        var password=document.getElementById("inputPwd").value
+        var confirmPwd=document.getElementById("confirmPwd").value
+        var elementById = document.getElementById("confirmMsg")
+
+        if(confirmPwd!==password)
+        {
+            elementById.innerText="两次输入的不一致"
+            return false
+        }
+        if(!regex.test(password))
+        {
+            elementById.innerText="不合法"
+            return false
+        }
+        elementById.innerText="OK"
+        return true;
+    }
+    function checkform()
+    {
+        return checkuserId()&&checkuserPwd()&&confirmpassword()
+    }
+
+</script>
+<form method="post" action="/project/user/regist" onsubmit="return checkform()">
+
+    <table class="tab">
+        <!--     输入账号栏-->
+        <tr class="tr">
+            <td>请输入账号</td>
+            <td><input id="inputId" type="text" name="userId" onblur= "checkuserId()">
+            <span id="userIdMSG"></span>
+            </td>
+        </tr>
+        <!--        输入密码栏-->
+        <tr class="tr">
+            <td>请输入密码</td>
+            <td>
+                <input id="inputPwd" type="password" name="userPwd" onblur="checkuserPwd()">
+                <span id="userPwdMSG"></span>
+            </td>
+        </tr>
+        <tr class="tr">
+            <td>请确认密码</td>
+            <td>
+                <input id="confirmPwd" type="password" name="confirmPwd" onblur="confirmpassword()">
+                <span id="confirmMsg"></span>
+            </td>
+        </tr>
+        <tr>
+            <td  colspan="2" class="button">
+                <input class="button" type="submit" name="regist" value="注册">
+                <input  class="button" type="reset"  value="重置 ">
+                <button class="button" ><a href="/project/login.html">去登录</a> </button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
